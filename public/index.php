@@ -23,6 +23,7 @@ $user = getCurrentUser();
             <header class="dashboard-header">
                 <h1>Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
                 <nav>
+                    <a href="profile.php" class="btn btn-primary">Profile</a>
                     <a href="change-password.php" class="btn btn-primary">Change Password</a>
                     <a href="logout.php" class="btn btn-secondary">Logout</a>
                 </nav>
