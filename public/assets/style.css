@@ -83,39 +83,35 @@ body {
 }
 
 /* Buttons */
-.btn {
-    display: inline-block;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
+.btn, .btn:visited {
+    color: #fff !important;
+    text-decoration: none !important;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    width: 100%;
-    margin-top: 10px;
+    border: none;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+    color: #fff !important;
 }
 
-.btn-secondary {
-    background: #6c757d;
-    color: white;
+.btn-outline-secondary, a.btn.btn-outline-secondary {
+    color: #343a40 !important;
+    background-color: #fff !important;
+    border: 1px solid #343a40 !important;
+    box-shadow: none !important;
 }
 
-.btn-secondary:hover {
-    background: #5a6268;
-    transform: translateY(-1px);
+.btn-outline-secondary:hover, .btn-outline-secondary:focus, a.btn.btn-outline-secondary:hover, a.btn.btn-outline-secondary:focus {
+    color: #fff !important;
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+    box-shadow: 0 8px 24px rgba(52, 58, 64, 0.15);
+    outline: none;
 }
 
 /* Messages */
