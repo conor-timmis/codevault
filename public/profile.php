@@ -47,66 +47,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
 <head>
     <meta charset="UTF-8">
     <title>Profile - PHP Auth System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-    <div class="container">
-        <div class="dashboard" style="max-width: 500px; margin: 40px auto;">
-            <header class="dashboard-header" style="justify-content: center;">
-                <h1>Your Profile</h1>
-            </header>
-            <div class="dashboard-content">
-                <?php if ($updateMsg): ?>
-                    <div class="message success"> <?= htmlspecialchars($updateMsg) ?> </div>
-                <?php endif; ?>
-                <form method="post">
-                    <div class="form-group">
-                        <label>Username:</label>
-                        <input type="text" value="<?= htmlspecialchars($user['username']) ?>" disabled>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white rounded shadow-sm mb-4">
+                    <div class="container-fluid">
+                        <a href="index.php" class="navbar-brand fw-bold">PHP Auth System</a>
+                        <div class="d-flex">
+                            <a href="index.php" class="btn btn-outline-secondary">Back to Home</a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Email:</label>
-                        <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                </nav>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title mb-4">Your Profile</h1>
+                        <?php if ($updateMsg): ?>
+                            <div class="alert alert-success"> <?= htmlspecialchars($updateMsg) ?> </div>
+                        <?php endif; ?>
+                        <form method="post" class="mb-4">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($user['username']) ?>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Display Name</label>
+                                <input type="text" class="form-control" name="display_name" value="<?= htmlspecialchars($user['display_name']) ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Registration Date</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($user['created_at']) ?>" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Last Login</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($user['last_login']) ?>" disabled>
+                            </div>
+                            <button type="submit" name="update_profile" class="btn btn-primary w-100">Update Profile</button>
+                        </form>
+                        <h2 class="h5 mb-3">Change Password</h2>
+                        <?php if ($pwMsg): ?>
+                            <div class="alert <?= strpos($pwMsg, 'success') !== false ? 'alert-success' : 'alert-danger' ?>"> <?= htmlspecialchars($pwMsg) ?> </div>
+                        <?php endif; ?>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-control" name="old_password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" name="new_password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" name="confirm_password" required>
+                            </div>
+                            <button type="submit" name="change_password" class="btn btn-primary w-100">Change Password</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label>Display Name:</label>
-                        <input type="text" name="display_name" value="<?= htmlspecialchars($user['display_name']) ?>">
-                    </div>
-                    <div class="form-group">
-                        <label>Registration Date:</label>
-                        <input type="text" value="<?= htmlspecialchars($user['created_at']) ?>" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Login:</label>
-                        <input type="text" value="<?= htmlspecialchars($user['last_login']) ?>" disabled>
-                    </div>
-                    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
-                </form>
-
-                <h2 style="margin-top: 40px;">Change Password</h2>
-                <?php if ($pwMsg): ?>
-                    <div class="message <?= strpos($pwMsg, 'success') !== false ? 'success' : 'error' ?>"> <?= htmlspecialchars($pwMsg) ?> </div>
-                <?php endif; ?>
-                <form method="post">
-                    <div class="form-group">
-                        <label>Current Password:</label>
-                        <input type="password" name="old_password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>New Password:</label>
-                        <input type="password" name="new_password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm New Password:</label>
-                        <input type="password" name="confirm_password" required>
-                    </div>
-                    <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
-                </form>
-                <div class="links" style="margin-top: 30px; text-align: center;">
-                    <a href="index.php">Back to Home</a>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 
