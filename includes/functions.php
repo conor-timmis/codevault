@@ -84,6 +84,9 @@ function loginUser($username, $password) {
         $_SESSION['logged_in'] = true;
         $_SESSION['login_time'] = time();
         
+        $stmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+        $stmt->execute([$user['id']]);
+        
         return ['success' => true, 'message' => 'Login successful!'];
         
     } catch (PDOException $e) {
