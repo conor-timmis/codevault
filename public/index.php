@@ -15,56 +15,67 @@ $user = getCurrentUser();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - PHP Auth System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-    <div class="container">
-        <div class="dashboard">
-            <header class="dashboard-header">
-                <h1>Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
-                <nav>
-                    <a href="profile.php" class="btn btn-primary">Profile</a>
-                    <a href="logout.php" class="btn btn-secondary">Logout</a>
-                </nav>
-            </header>
-            
-            <div class="dashboard-content">
-                <div class="user-info">
-                    <h2>Your Account Information</h2>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <label>User ID:</label>
-                            <span><?php echo $user['id']; ?></span>
+<body class="bg-light">
+    <div class="container py-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white rounded shadow-sm mb-4">
+            <div class="container-fluid">
+                <span class="navbar-brand fw-bold">PHP Auth System</span>
+                <div class="d-flex">
+                    <a href="profile.php" class="btn btn-primary me-2">Profile</a>
+                    <a href="logout.php" class="btn btn-outline-secondary">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title mb-4">Welcome, <?php echo htmlspecialchars($user['username']); ?>!</h1>
+                <div class="mb-4">
+                    <h2 class="h5">Your Account Information</h2>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-uppercase text-muted small mb-1">User ID:</div>
+                                <div class="fw-bold"><?php echo $user['id']; ?></div>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <label>Username:</label>
-                            <span><?php echo htmlspecialchars($user['username']); ?></span>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-uppercase text-muted small mb-1">Username:</div>
+                                <div class="fw-bold"><?php echo htmlspecialchars($user['username']); ?></div>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <label>Email:</label>
-                            <span><?php echo htmlspecialchars($user['email']); ?></span>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-uppercase text-muted small mb-1">Email:</div>
+                                <div class="fw-bold"><?php echo htmlspecialchars($user['email']); ?></div>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <label>Login Time:</label>
-                            <span><?php echo date('Y-m-d H:i:s', $_SESSION['login_time']); ?></span>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-uppercase text-muted small mb-1">Login Time:</div>
+                                <div class="fw-bold"><?php echo date('Y-m-d H:i:s', $_SESSION['login_time']); ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="features">
-                    <h2>What you can do:</h2>
-                    <ul>
-                        <li>✅ Register new accounts with secure password hashing</li>
-                        <li>✅ Login with username or email</li>
-                        <li>✅ Secure session management</li>
-                        <li>✅ Change password with current password verification</li>
-                        <li>✅ Logout functionality</li>
-                        <li>✅ Input validation </li>
-                        <li>✅ Environment variable configuration</li>
+                <div>
+                    <h2 class="h5 mb-3">What you can do:</h2>
+                    <ul class="list-group list-group-flush mb-0">
+                        <li class="list-group-item">✅ Register new accounts with secure password hashing</li>
+                        <li class="list-group-item">✅ Login with username or email</li>
+                        <li class="list-group-item">✅ Secure session management</li>
+                        <li class="list-group-item">✅ Change password with current password verification</li>
+                        <li class="list-group-item">✅ Logout functionality</li>
+                        <li class="list-group-item">✅ Input validation</li>
+                        <li class="list-group-item">✅ Environment variable configuration</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
