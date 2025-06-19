@@ -2,6 +2,28 @@
 require_once 'config.php';
 
 /**
+ * Initialize secure session
+ */
+function initSecureSession() {
+    if (session_status() === PHP_SESSION_NONE) {
+        // Configure session security
+        ini_set('session.cookie_httponly', 1);
+        ini_set('session.use_only_cookies', 1);
+        ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
+        
+        session_start();
+        
+        // Set session timeout (30 minutes)
+        if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time'] > 1800)) {
+            session_unset();
+            session_destroy();
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
  * Register a new user
  */
 function registerUser($username, $email, $password) {
@@ -73,10 +95,9 @@ function loginUser($username, $password) {
             return ['success' => false, 'message' => 'Invalid username or password'];
         }
         
-        // Start session and store user data
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        // Start secure session and regenerate session ID (prevent session fixation)
+        initSecureSession();
+        session_regenerate_id(true);
         
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
@@ -98,8 +119,8 @@ function loginUser($username, $password) {
  * Check if user is logged in
  */
 function isLoggedIn() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+    if (!initSecureSession()) {
+        return false;
     }
     
     return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
