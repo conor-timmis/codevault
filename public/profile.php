@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/functions.php';
-require_once '../includes/auth.php';
 
 if (!isLoggedIn()) {
     header('Location: login.php');
@@ -19,16 +18,30 @@ $updateMsg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     $email = sanitizeInput($_POST['email']);
     $display_name = sanitizeInput($_POST['display_name']);
-    $stmt = $pdo->prepare("UPDATE users SET email = ?, display_name = ? WHERE id = ?");
-    try {
-        $stmt->execute([$email, $display_name, $userId]);
-        $_SESSION['email'] = $email;
-        $updateMsg = 'Profile updated successfully!';
-        $stmt = $pdo->prepare("SELECT username, email, display_name, created_at, last_login FROM users WHERE id = ?");
-        $stmt->execute([$userId]);
-        $user = $stmt->fetch();
-    } catch (PDOException $e) {
-        $updateMsg = 'Error updating profile: ' . $e->getMessage();
+    
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $updateMsg = 'Please enter a valid email address';
+    } else {
+        // Check if email is already taken by another user
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
+        $stmt->execute([$email, $userId]);
+        
+        if ($stmt->rowCount() > 0) {
+            $updateMsg = 'Email is already taken by another user';
+        } else {
+            try {
+                $stmt = $pdo->prepare("UPDATE users SET email = ?, display_name = ? WHERE id = ?");
+                $stmt->execute([$email, $display_name, $userId]);
+                $_SESSION['email'] = $email;
+                $updateMsg = 'Profile updated successfully!';
+                $stmt = $pdo->prepare("SELECT username, email, display_name, created_at, last_login FROM users WHERE id = ?");
+                $stmt->execute([$userId]);
+                $user = $stmt->fetch();
+            } catch (PDOException $e) {
+                $updateMsg = 'Error updating profile: ' . $e->getMessage();
+            }
+        }
     }
 }
 
