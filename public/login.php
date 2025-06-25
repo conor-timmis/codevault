@@ -10,10 +10,10 @@ if (isLoggedIn()) {
 $message = '';
 $messageType = '';
 
-// Check for success message from registration
+// Check for success message from registration or redirect message
 if (isset($_GET['message'])) {
     $message = urldecode($_GET['message']);
-    $messageType = 'success';
+    $messageType = 'info';
 }
 
 // Handle form submission
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body p-4">
                         <h1 class="card-title text-center mb-4">Login</h1>
                         <?php if ($message): ?>
-                            <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?>">
+                            <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : ($messageType === 'info' ? 'info' : 'danger'); ?>">
                                 <?php echo htmlspecialchars($message); ?>
                             </div>
                         <?php endif; ?>
