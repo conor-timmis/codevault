@@ -27,6 +27,14 @@ if ($paste['visibility'] === 'private' && (!isLoggedIn() || $_SESSION['user_id']
     exit();
 }
 
+// Handle raw view - must be before any HTML output
+if (isset($_GET['raw'])) {
+    header('Content-Type: text/plain; charset=utf-8');
+    header('Cache-Control: public, max-age=3600');
+    echo $paste['content'];
+    exit();
+}
+
 $languages = getSupportedLanguages();
 $languageName = $languages[$paste['language']] ?? $paste['language'];
 ?>
@@ -122,9 +130,6 @@ $languageName = $languages[$paste['language']] ?? $paste['language'];
                             <a href="paste.php?id=<?php echo htmlspecialchars($paste['paste_id']); ?>&raw=1" class="btn btn-outline-secondary" target="_blank">
                                 <i class="fas fa-file-alt"></i> Raw
                             </a>
-                            <a href="paste.php?id=<?php echo htmlspecialchars($paste['paste_id']); ?>&download=1" class="btn btn-outline-success">
-                                <i class="fas fa-download"></i> Download
-                            </a>
                         </div>
                         
                         <?php if (isLoggedIn() && $_SESSION['user_id'] == $paste['user_id']): ?>
@@ -208,23 +213,4 @@ $languageName = $languages[$paste['language']] ?? $paste['language'];
         }
     </script>
 </body>
-</html>
-
-<?php
-// Handle raw view
-if (isset($_GET['raw'])) {
-    header('Content-Type: text/plain; charset=utf-8');
-    echo $paste['content'];
-    exit();
-}
-
-// Handle download
-if (isset($_GET['download'])) {
-    $filename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $paste['title']) . '.txt';
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-    header('Content-Length: ' . strlen($paste['content']));
-    echo $paste['content'];
-    exit();
-}
-?> 
+</html> 
