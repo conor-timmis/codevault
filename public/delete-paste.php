@@ -2,6 +2,9 @@
 require_once '../includes/functions.php';
 require_once '../includes/paste-functions.php';
 
+// Initialize session first
+initSecureSession();
+
 // Only handle POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');

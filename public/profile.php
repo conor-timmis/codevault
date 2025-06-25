@@ -1,6 +1,9 @@
 <?php
 require_once '../includes/functions.php';
 
+// Initialize session first
+initSecureSession();
+
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;

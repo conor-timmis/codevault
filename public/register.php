@@ -1,6 +1,9 @@
 <?php
 require_once '../includes/functions.php';
 
+// Initialize session first
+initSecureSession();
+
 $message = '';
 $messageType = '';
 

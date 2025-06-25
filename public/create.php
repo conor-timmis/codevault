@@ -2,6 +2,9 @@
 require_once '../includes/functions.php';
 require_once '../includes/paste-functions.php';
 
+// Initialize session first
+initSecureSession();
+
 // Redirect if not logged in
 if (!isLoggedIn()) {
     header('Location: login.php?message=' . urlencode('Please login to create pastes'));

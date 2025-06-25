@@ -1,6 +1,9 @@
 <?php
 require_once '../includes/functions.php';
 
+// Initialize session first
+initSecureSession();
+
 // Redirect if already logged in
 if (isLoggedIn()) {
     header('Location: index.php');

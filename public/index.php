@@ -2,6 +2,9 @@
 require_once '../includes/functions.php';
 require_once '../includes/paste-functions.php';
 
+// Initialize session first
+initSecureSession();
+
 // Get recent public pastes
 $recentPastes = getRecentPublicPastes(10);
 $languages = getSupportedLanguages();
