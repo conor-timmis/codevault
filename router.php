@@ -4,7 +4,14 @@
 // This file is used by the PHP built-in server to route requests
 
 $requested = $_SERVER["REQUEST_URI"];
-$file = __DIR__ . '/public' . parse_url($requested, PHP_URL_PATH);
+$path = parse_url($requested, PHP_URL_PATH);
+
+// Handle root directory - redirect to index.php
+if ($path === '/') {
+    $path = '/index.php';
+}
+
+$file = __DIR__ . '/public' . $path;
 
 if (php_sapi_name() === 'cli-server') {
     if (is_file($file)) {
