@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
     is_active BOOLEAN DEFAULT TRUE
 );
 
--- Create index for faster lookups
-CREATE INDEX idx_username ON users(username);
-CREATE INDEX idx_email ON users(email);
+-- Create index for faster lookups (if not exists)
+CREATE INDEX IF NOT EXISTS idx_username ON users(username);
+CREATE INDEX IF NOT EXISTS idx_email ON users(email);
