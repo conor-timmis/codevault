@@ -152,7 +152,7 @@ $languages = getSupportedLanguages();
     <!-- Footer -->
     <footer class="bg-dark text-light py-4 mt-5">
         <div class="container text-center">
-            <p>&copy; 2024 CodeVault. A simple pastebin for developers and writers.</p>
+            <p>&copy; 2025 CodeVault. A simple pastebin for developers and writers.</p>
         </div>
     </footer>
 
