@@ -1,5 +1,7 @@
 # CodeVault 📋
 
+![Home Page](documentation/preview.png)
+
 A modern, feature-rich pastebin application built with PHP that allows users to share code snippets and text content with syntax highlighting, privacy controls, and expiration options.
 
 ## 🚀 Features
